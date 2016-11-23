@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+        <title>Document</title>
+
+        <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+        <p class="toVueTitle">toVueList</p>
+
+        <div id="vueContainer">
+
+
+            <pre id="firebaseData"></pre>
+            <!--
+            <pre>{{$data}}</pre>
+            -->
+
+            <div class="inputBox">
+                <input v-model="newNoteText" @keyup.enter="addNewNote" class="forInput" type="text" placeholder="What needs to be done ?" autofocus>
+            </div>
+            <ul class="noteList">
+
+                <li v-if="filterShow(eachNote)" v-for="eachNote in notesList" class='newNote' @mouseover="showDelete(eachNote)" @mouseleave="hideDelete(eachNote)">
+
+                    {{eachNote.text}}
+
+                    <div v-if="eachNote.isHovering" class='deleteIcon' @click="removeNote(eachNote)">
+                        <i class='fa fa-trash' aria-hidden='true'></i>
+                    </div>
+
+                    <div class='checkIcon' @click="toggleDone(eachNote)">
+                        <i v-if="eachNote.isDone" class="fa fa-check" aria-hidden="true"></i>
+                    </div>
+
+                </li>
+
+            </ul>
+            <div class="footControl">
+                <div class="mode1" v-bind:class={modeOpen:mode1} @click="openMode1">All</div>
+                <div class="mode2" v-bind:class={modeOpen:mode2} @click="openMode2">Incomplete</div>
+                <div class="mode3" v-bind:class={modeOpen:mode3} @click="openMode3">Completed</div>
+            </div>
+        </div>
+
+        <!--<button id="testUpdate">Test Update</button>-->
+
+        <script src="jquery-3.1.1/jquery-3.1.1.min.js"></script>
+        <script src="vue.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/3.6.1/firebase.js"></script>
+        <script src="firebaseControl.js"></script>
+        <script src="main.js"></script>
+
+    </body>
+
+</html>
